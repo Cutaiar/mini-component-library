@@ -21,7 +21,9 @@ const ProgressBar = ({ value, size }) => {
       size={size}
     >
       <BarWrapper>
-        <Bar size={size} value={value} />
+        <Bar size={size} value={value}>
+          <VisuallyHidden>{`${value}%`}</VisuallyHidden>
+        </Bar>
       </BarWrapper>
     </Progress>
   );
