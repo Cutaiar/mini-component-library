@@ -20,10 +20,9 @@ const ProgressBar = ({ value, size }) => {
       aria-valuenow={value}
       size={size}
     >
+      <VisuallyHidden>{`${value}%`}</VisuallyHidden>
       <BarWrapper>
-        <Bar size={size} value={value}>
-          <VisuallyHidden>{`${value}%`}</VisuallyHidden>
-        </Bar>
+        <Bar size={size} value={value}></Bar>
       </BarWrapper>
     </Progress>
   );
@@ -32,8 +31,6 @@ const ProgressBar = ({ value, size }) => {
 export default ProgressBar;
 
 const Progress = styled.div`
-  height: ${(p) => heights[p.size]};
-  min-width: 370px;
   border-radius: ${(p) => (p.size === "large" ? "8px" : "4px")};
   background-color: ${COLORS.transparentGray15};
   box-shadow: inset 0px 2px 4px ${COLORS.transparentGray35};
@@ -42,7 +39,7 @@ const Progress = styled.div`
 
 const Bar = styled.div`
   width: ${(p) => p.value + "%"};
-  height: 100%;
+  height: ${(p) => heights[p.size]};
   border-radius: 4px 0 0 4px;
   background-color: ${COLORS.primary};
 
@@ -53,7 +50,6 @@ const Bar = styled.div`
 // Exists to round inner bar edges via clipping on all sizes
 const BarWrapper = styled.div`
   border-radius: 4px;
-  height: 100%;
   /* Clip inner bar to curved edge */
   overflow: hidden;
 `;
