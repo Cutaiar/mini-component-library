@@ -10,8 +10,9 @@ const IconInput = ({ label, icon, width = 250, size, placeholder }) => {
   const style = styles[size];
   return (
     <Root
-      width={width + "px"}
-      style={{ "--border-width": style.strokeWidth + "px" }}
+      style={{
+        "--width": width + "px",
+      }}
     >
       <PositionedIcon
         id={icon}
@@ -24,7 +25,8 @@ const IconInput = ({ label, icon, width = 250, size, placeholder }) => {
         width={width}
         type={"text"}
         style={{
-          "--font-size": style.fontSize + "px",
+          "--border-width": style.strokeWidth + "px",
+          "--font-size": style.fontSize / 16 + "rem",
           "--padding": style.padding + "px",
         }}
       />
@@ -59,22 +61,19 @@ const NativeInput = styled.input`
 
   padding-block: 8px;
   padding-left: var(--padding);
-  width: 100%;
+  width: var(--width);
   color: inherit;
+  outline-offset: 4px;
+  border-bottom: var(--border-width) solid ${COLORS.black};
 
   &::placeholder {
     font-weight: 400;
     color: ${COLORS.gray500};
   }
 
+  /* Make sure the placeholder also responds to hover */
   &:hover::placeholder {
     color: ${COLORS.black};
-  }
-
-  &:focus-visible {
-    outline: 1px dotted #212121; /* Fallback */
-    outline: 5px auto -webkit-focus-ring-color;
-    outline-offset: 3px;
   }
 `;
 
@@ -83,14 +82,12 @@ const PositionedIcon = styled(Icon)`
   top: 0;
   bottom: 0;
   left: 0;
-  margin: auto;
-  pointer-events: none;
+  margin: auto 0;
 `;
 
-const Root = styled.div`
+const Root = styled.label`
+  display: block;
   position: relative;
-  width: ${(p) => p.width};
-  border-bottom: var(--border-width) solid ${COLORS.black};
   color: ${COLORS.gray700};
 
   &:hover {
